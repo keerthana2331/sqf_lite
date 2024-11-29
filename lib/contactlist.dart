@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api, prefer_const_constructors, sort_child_properties_last
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'db_helper.dart';
@@ -6,36 +8,35 @@ import 'contactpage.dart';
 
 class ContactListPage extends StatefulWidget {
   @override
-  _ContactListPageState createState() => _ContactListPageState();
+  ContactListPageState createState() => ContactListPageState();
 }
 
-class _ContactListPageState extends State<ContactListPage> {
+class ContactListPageState extends State<ContactListPage> {
   List<Contact> _contacts = [];
   final DBHelper _dbHelper = DBHelper();
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
 
-  // Gradient color control
   late List<Color> _colors;
   late List<Color> _secondColors;
 
   @override
   void initState() {
     super.initState();
-    _loadContacts();
+    loadContacts();
 
-    _colors = [Colors.teal.shade300, Colors.blue.shade400]; // Initial colors
-    _secondColors = [Colors.blue.shade400, Colors.purple.shade600]; // Second colors for animation
-    _startGradientAnimation();
+    _colors = [Colors.teal.shade300, Colors.blue.shade400];
+    _secondColors = [Colors.blue.shade400, Colors.purple.shade600];
+    startGradientAnimation();
   }
 
-  Future<void> _loadContacts() async {
+  Future<void> loadContacts() async {
     final contacts = await _dbHelper.getContacts();
     setState(() {
       _contacts = contacts;
     });
   }
 
-  void _navigateToAddEditPage({Contact? contact}) async {
+  void navigateToAddEditPage({Contact? contact}) async {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
@@ -44,11 +45,11 @@ class _ContactListPageState extends State<ContactListPage> {
     );
 
     if (result == true) {
-      _loadContacts();
+      loadContacts();
     }
   }
 
-  Future<void> _confirmDelete(int id, int index) async {
+  Future<void> confirmDelete(int id, int index) async {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
@@ -75,14 +76,13 @@ class _ContactListPageState extends State<ContactListPage> {
     }
   }
 
-  // Function to animate background gradient change
-  void _startGradientAnimation() {
+  void startGradientAnimation() {
     Future.delayed(Duration(seconds: 3), () {
       setState(() {
         _colors = _secondColors;
         _secondColors = _colors;
       });
-      _startGradientAnimation(); // Loop the animation
+      startGradientAnimation();
     });
   }
 
@@ -112,7 +112,8 @@ class _ContactListPageState extends State<ContactListPage> {
                   children: [
                     AnimatedContainer(
                       duration: Duration(seconds: 1),
-                      child: Icon(Icons.contacts, size: 100, color: Colors.white.withOpacity(0.7)),
+                      child: Icon(Icons.contacts,
+                          size: 100, color: Colors.white.withOpacity(0.7)),
                     ),
                     SizedBox(height: 16),
                     Text(
@@ -146,18 +147,21 @@ class _ContactListPageState extends State<ContactListPage> {
                         child: FadeInAnimation(
                           child: Card(
                             elevation: 4,
-                            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                            margin: EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 12),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: ListTile(
-                              contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 8),
                               leading: CircleAvatar(
                                 radius: 24,
                                 backgroundColor: Colors.teal.shade300,
                                 child: Text(
                                   contact.name[0].toUpperCase(),
-                                  style: TextStyle(color: Colors.white, fontSize: 20),
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
                                 ),
                               ),
                               title: Text(
@@ -177,15 +181,19 @@ class _ContactListPageState extends State<ContactListPage> {
                                   Tooltip(
                                     message: 'Edit Contact',
                                     child: IconButton(
-                                      icon: Icon(Icons.edit, color: Colors.blue),
-                                      onPressed: () => _navigateToAddEditPage(contact: contact),
+                                      icon:
+                                          Icon(Icons.edit, color: Colors.blue),
+                                      onPressed: () => navigateToAddEditPage(
+                                          contact: contact),
                                     ),
                                   ),
                                   Tooltip(
                                     message: 'Delete Contact',
                                     child: IconButton(
-                                      icon: Icon(Icons.delete, color: Colors.red),
-                                      onPressed: () => _confirmDelete(contact.id!, index),
+                                      icon:
+                                          Icon(Icons.delete, color: Colors.red),
+                                      onPressed: () =>
+                                          confirmDelete(contact.id!, index),
                                     ),
                                   ),
                                 ],
@@ -200,7 +208,7 @@ class _ContactListPageState extends State<ContactListPage> {
               ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _navigateToAddEditPage(),
+        onPressed: () => navigateToAddEditPage(),
         child: Icon(Icons.add),
         backgroundColor: Colors.teal,
       ),

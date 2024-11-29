@@ -1,5 +1,7 @@
+// ignore_for_file: use_super_parameters, prefer_const_constructors, use_build_context_synchronously, curly_braces_in_flow_control_structures
+
 import 'package:flutter/material.dart';
-import 'dart:async'; // For periodic updates.
+import 'dart:async';
 
 import 'db_helper.dart';
 import 'contact.dart';
@@ -39,7 +41,8 @@ class AddEditContactPageState extends State<AddEditContactPage> {
   void startGradientAnimation() {
     Timer.periodic(Duration(seconds: 4), (timer) {
       setState(() {
-        currentGradientIndex = (currentGradientIndex + 1) % gradientColors.length;
+        currentGradientIndex =
+            (currentGradientIndex + 1) % gradientColors.length;
       });
     });
   }
@@ -114,10 +117,12 @@ class AddEditContactPageState extends State<AddEditContactPage> {
                       controller: nameController,
                       decoration: InputDecoration(
                         labelText: 'Full Name',
-                        labelStyle: TextStyle(color: Colors.white70, fontSize: 16),
+                        labelStyle:
+                            TextStyle(color: Colors.white70, fontSize: 16),
                         border: OutlineInputBorder(),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white70, width: 2.0),
+                          borderSide:
+                              BorderSide(color: Colors.white70, width: 2.0),
                         ),
                         prefixIcon: Icon(Icons.person, color: Colors.white),
                       ),
@@ -129,17 +134,21 @@ class AddEditContactPageState extends State<AddEditContactPage> {
                       controller: phoneController,
                       decoration: InputDecoration(
                         labelText: 'Phone Number',
-                        labelStyle: TextStyle(color: Colors.white70, fontSize: 16),
+                        labelStyle:
+                            TextStyle(color: Colors.white70, fontSize: 16),
                         border: OutlineInputBorder(),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white70, width: 2.0),
+                          borderSide:
+                              BorderSide(color: Colors.white70, width: 2.0),
                         ),
                         prefixIcon: Icon(Icons.phone, color: Colors.white),
                       ),
                       keyboardType: TextInputType.phone,
                       validator: (value) {
-                        if (value!.isEmpty) return 'Please enter a phone number';
-                        if (value.length != 10) return 'Phone number must be 10 digits';
+                        if (value!.isEmpty)
+                          return 'Please enter a phone number';
+                        if (value.length != 10)
+                          return 'Phone number must be 10 digits';
                         return null;
                       },
                     ),
@@ -176,7 +185,8 @@ class AddEditContactPageState extends State<AddEditContactPage> {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              icon: Icon(Icons.cancel, color: Colors.white, size: 20),
+                              icon: Icon(Icons.cancel,
+                                  color: Colors.white, size: 20),
                               label: Text(
                                 'Cancel',
                                 style: TextStyle(fontSize: 16),

@@ -3,19 +3,19 @@ import 'package:sqflite/sqflite.dart';
 import 'contact.dart';
 
 class DBHelper {
-  static final DBHelper _instance = DBHelper._internal();
-  factory DBHelper() => _instance;
-  DBHelper._internal();
+  static final DBHelper instance = DBHelper.internal();
+  factory DBHelper() => instance;
+  DBHelper.internal();
 
   static Database? _database;
 
   Future<Database> get database async {
     if (_database != null) return _database!;
-    _database = await _initDatabase();
+    _database = await initDatabase();
     return _database!;
   }
 
-  Future<Database> _initDatabase() async {
+  Future<Database> initDatabase() async {
     String path = join(await getDatabasesPath(), 'contacts.db');
     return await openDatabase(
       path,
@@ -62,3 +62,5 @@ class DBHelper {
     );
   }
 }
+
+ 

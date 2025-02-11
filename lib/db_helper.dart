@@ -27,7 +27,10 @@ class DBHelper {
             name TEXT,
             phone TEXT
           )
+          l.
+          
         ''');
+        
       },
     );
   }
@@ -52,6 +55,7 @@ class DBHelper {
       whereArgs: [contact.id],
     );
   }
+  
 
   Future<int> deleteContact(int id) async {
     final db = await database;
@@ -62,3 +66,4 @@ class DBHelper {
     );
   }
 }
+  
